@@ -11,11 +11,14 @@ export const styles = StyleSheet.create({
     // backgroundColor:'rgba(#2D2E32,#2D2E32,#2D2E32,0.5)',
   },
   viewData: {
-    flex: 4,
-    margin: 30,
-    borderWidth: 0.5,
+    backgroundColor:'rgba(224,60,114,0.2)',
+    flex: 7,
+    // margin: 30,
+    borderWidth: 3,
     borderColor: 'black',
-    borderRadius: 5,
+    borderRadius: 30,
+    alignItems:'center',
+    // justifyContent:'center'
   },
   viewImg: {
     flex: 1,
@@ -30,15 +33,18 @@ export const styles = StyleSheet.create({
     width: 200,
     flex: 0,
     borderRadius: 200 / 2,
-    borderWidth: 0.5,
+    borderWidth: 2,
     borderColor: 'black',
     // alignItems: 'center',
     // justifyContent: 'center',
     alignSelf: 'center',
+    justifyContent:'center'
     // marginHorizontal:20
     // marginTop: 80,
   },
   img: {
+    justifyContent:'center',
+    alignContent:'center',
     // flex:1,
     height: '90%',
     width: '90%',
@@ -53,17 +59,23 @@ export const styles = StyleSheet.create({
   },
   viewText: {
     flex:1,
-    borderWidth: 1,
+    // borderWidth: 1,
+    flexDirection:'column',
+    alignItems:'center',
+    justifyContent:'center',
+    borderRadius:20
     // borderColor: 'rgba(0,0,0,1)',
     // backgroundColor:'red'
   },
   viewIcon: {
     flex: 1,
     borderWidth: 1,
+    borderRadius:20,
+    backgroundColor:'#F3D595'
   },
 
   line: {
-    height: 1,
+    height: 3,
     //   width:'100%',
     flex: 1,
     backgroundColor: 'black',
@@ -79,6 +91,38 @@ export const styles = StyleSheet.create({
   },
   viewBtn: {
     flex: 1,
+  },
+  textInfo:{
+    fontSize:20,
+    fontWeight:'500',
+    color:'black'
+  },
+  textTitle:{
+    fontSize:15,
+    fontWeight:'500',
+    color:'rgba(0,0,0,0.3)'
+  },
+  card:{
+    justifyContent:'center',
+    alignItems:'center',
+    margin:20,
+    height:'90%',
+    width:'90%',
+    position:'absolute'
+  },
+  likeText: {
+    left: 40,
+    color: '#32CD32',
+    borderColor: '#32CD32',
+    fontSize:40,
+    fontWeight:'800',
+  },
+  nopeText: {
+    right: 20,
+    color: 'red',
+    borderColor: 'red',
+    fontSize:40,
+    fontWeight:'800'
   },
 });
 

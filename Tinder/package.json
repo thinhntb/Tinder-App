@@ -14,9 +14,11 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-native-fontawesome": "^0.2.7",
     "axios": "^0.27.2",
+    "moment": "^2.29.3",
     "qs": "^6.10.3",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-sqlite-storage": "^6.0.1",
     "react-native-svg": "^12.3.0",
     "react-native-vector-icons": "^9.1.0",
     "react-tinder-card": "^1.4.5"
