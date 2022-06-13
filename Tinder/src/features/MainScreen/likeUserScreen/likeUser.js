@@ -11,7 +11,7 @@ import {
   FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import sqlite from 'react-native-sqlite-storage';
+import sqlite, { deleteDatabase } from 'react-native-sqlite-storage';
 import axios from 'axios';
 export const db = sqlite.openDatabase(
   {
@@ -26,50 +26,7 @@ export const db = sqlite.openDatabase(
 );
 
 export default likeUser = ({navigation}) => {
-  // const [userName, setUserName] = useState([]);
-  // const [picture, setPicture] = useState([]);
-  // const [gender, setGender] = useState([]);
   const [data, setData] = useState([]);
-
-  // const {Id,UserName,Gender,Picture} = data
-  //  console.log(data.Gender)
-  // console.log('name',data.username)
-
-  const renderItem = ({item, index}) => (
-    
-      <View
-        key={index.toString()}
-        style={{
-          flex: 1,
-          flexDirection: 'row',
-          margin: 20,
-          backgroundColor:'rgba(225,225,225,0.5)',
-          borderRadius:20,
-          // borderWidth:1,
-
-        }}>
-        <Image
-          style={{height: 100, width: 100}}
-          source={{uri: item.Picture}}></Image>
-        <View style={{flexDirection: 'column',flex:7}}>
-          <Text>Gender: {item.Gender}</Text>
-          <Text>UserName: {item.UserName}</Text>
-        </View>
-      </View>
-  );
-
-  // const getList = async () => {
-  //   await axios ({
-  //     url:'https://jsonplaceholder.typicode.com/posts',
-  //     method:'GET',
-  //   }).then ((result) => {
-  //     const list = result.data
-  //     console.log('data',list)
-  //     setData(list)
-  //   }).catch((error) => {
-  //     console.log('fetch api fail', error)
-  //   })
-  // }
 
   useEffect(() => {
     getData();
@@ -80,6 +37,34 @@ export default likeUser = ({navigation}) => {
     // getData();
     console.log(data);
   }, [data]);
+
+  const RemoveData = async (UserName) => {
+    // console.log('ok',item.id)
+    var params = [UserName]
+    try {
+      await db.transaction( (tx) =>
+        tx.executeSql(
+          `DELETE FROM Users WHERE UserName = ?`,
+          params,
+          (tx, result) => {
+            console.log('ok',UserName)
+            getData()
+            error => {console.log(error)}
+            // const arr = [];
+            // const len = result.rows.length;
+            // for (let i = 0; i < len; i++) {
+            //   arr.push(result.rows.item(i));
+            // }
+            // console.log('len', arr);
+
+            // setData(arr);
+          },
+        ),
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getData = async () => {
     try {
@@ -94,7 +79,6 @@ export default likeUser = ({navigation}) => {
               arr.push(result.rows.item(i));
             }
             console.log('len', arr);
-
             setData(arr);
           },
         ),
@@ -103,6 +87,34 @@ export default likeUser = ({navigation}) => {
       console.log(error);
     }
   };
+
+  const renderItem = ({item, index}) => (
+    
+    <View
+      key={index.toString()}
+      style={{
+        flex: 1,
+        flexDirection: 'row',
+        margin: 20,
+        backgroundColor:'rgba(225,225,225,0.5)',
+        borderRadius:20,
+        // borderWidth:1,
+
+      }}>
+      <Image
+        style={{height: 100, width: 100}}
+        source={{uri: item.Picture}}></Image>
+      <View style={{flexDirection: 'column',flex:7}}>
+        <Text>Gender: {item.Gender}</Text>
+        <Text>UserName: {item.UserName}</Text>
+      </View>
+      <TouchableOpacity style={{width:'20%',height:'100%',alignItems:'center',justifyContent:'center',backgroundColor:'red',borderTopRightRadius:20,borderBottomRightRadius:20}}
+      onPress={() => RemoveData(item.UserName)}>
+      <Icon name='trash' size={30} color='white'/>
+      
+      </TouchableOpacity>
+    </View>
+);
 
   return (
     <View style={{flex: 1, backgroundColor:'rgb(253, 58, 115)'}}>
