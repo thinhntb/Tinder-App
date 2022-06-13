@@ -31,7 +31,7 @@ export const db = sqlite.openDatabase(
   },
 );
 
-export default Main = props => {
+export default Main = ({navigation}) => {
   const [index, setIndex] = useState(0);
   const [info, setInfo] = useState('');
   const [data, setData] = useState([]);
@@ -48,7 +48,7 @@ export default Main = props => {
           `(Id INTEGER PRIMARY KEY AUTOINCREMENT,Gender TEXT,UserName TEXT, Picture TEXT)`,
         [],
         (sqlTxn, res) => {
-          console.log(`createTables successfully`,res);
+          console.log(`createTables successfully`, res);
         },
         error => {
           console.log(`createTables error` + error.message);
@@ -113,25 +113,27 @@ export default Main = props => {
         dataRef.current = list;
         setData(list);
         // setDataBase(list)
-        // console.log(list)
+        console.log(list);
       })
       .catch(error => {
         console.log('fetch data fail');
       });
   };
 
-  {/*Insert Sqlite */}
+  {
+    /*Insert Sqlite */
+  }
   const setDataBase = async () => {
-    console.log('ref',dataRef.current)
-    const {gender, username, picture} = dataRef.current
+    console.log('ref', dataRef.current);
+    const {gender, username, picture} = dataRef.current;
     try {
       await db.transaction(async tx => {
         await tx.executeSql(
           `INSERT INTO Users (Gender,UserName, Picture) VALUES (?,?,?)`,
           [gender, username, picture],
-          (sqlTx,re) =>{
-            console.log('added success',username)
-          }
+          (sqlTx, re) => {
+            console.log('added success', username);
+          },
         );
       });
     } catch (error) {
@@ -139,11 +141,9 @@ export default Main = props => {
     }
   };
 
-  
-
   // useEffect (() =>{
-  //   console.log('name',username);
-  // },[username])
+  //   console.log('name',data);
+  // },[data])
 
   const swipeRight = () => {
     Animated.spring(animatedValue, {
@@ -155,7 +155,7 @@ export default Main = props => {
     }).start(() => {
       animatedValue.setValue({x: 0, y: 0});
 
-    // setCurrentCardIndex(prevIndex => prevIndex + 1);
+      // setCurrentCardIndex(prevIndex => prevIndex + 1);
     });
     setDataBase();
     // setData([]);
@@ -275,7 +275,6 @@ export default Main = props => {
             {/*Icon Button  */}
             <View style={styles.viewIcon}>
               <View style={styles.viewText}>
-                <Text>{username}</Text>
                 <Text style={styles.textTitle}>{info}</Text>
                 <Text style={styles.textInfo}>{textOutput}</Text>
               </View>
@@ -302,7 +301,15 @@ export default Main = props => {
               </View>
             </View>
           </View>
-          <View style={styles.viewBtn}></View>
+          <View style={styles.viewBtn}>
+            <TouchableOpacity 
+            style={{flexDirection: 'column', paddingTop: 30}}
+            onPress={() => navigation.navigate('LikeUser')}
+            >
+              <Icon name="heart" size={50} color="red" />
+              <Text>Favorite</Text>
+            </TouchableOpacity>
+          </View>
           <React.Fragment>
             <Animated.Text
               style={[styles.text, styles.likeText, likeTextAnimation]}>

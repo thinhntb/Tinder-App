@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'rgb(253, 58, 115)',
   },
   backGround: {
     height: '25%',
@@ -111,7 +112,7 @@ export const styles = StyleSheet.create({
     position:'absolute'
   },
   likeText: {
-    left: 40,
+    left: 20,
     color: '#32CD32',
     borderColor: '#32CD32',
     fontSize:40,

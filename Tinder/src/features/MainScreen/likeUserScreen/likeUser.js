@@ -10,6 +10,7 @@ import {
   ImageBackground,
   FlatList,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import sqlite from 'react-native-sqlite-storage';
 import axios from 'axios';
 export const db = sqlite.openDatabase(
@@ -24,7 +25,7 @@ export const db = sqlite.openDatabase(
   },
 );
 
-export default likeUser = () => {
+export default likeUser = ({navigation}) => {
   // const [userName, setUserName] = useState([]);
   // const [picture, setPicture] = useState([]);
   // const [gender, setGender] = useState([]);
@@ -104,11 +105,14 @@ export default likeUser = () => {
   };
 
   return (
-    <ImageBackground style={{flex:1}}
-    source={{uri:'https://www.techvisibility.com/wp-content/uploads/2020/09/image-6-558x410.png'}}
+    <View style={{flex: 1, backgroundColor:'rgb(253, 58, 115)'}}>
+    <TouchableOpacity 
+    style={{paddingLeft:20}}
+    onPress={() => navigation.goBack() }
     >
-    <View style={{flex: 1}}>
-      <FlatList
+    <Icon name='angle-left' size={40} color='white'/>
+    </TouchableOpacity>  
+    <FlatList
         style={{flex: 1}}
         data={data}
         renderItem={renderItem}
@@ -116,6 +120,5 @@ export default likeUser = () => {
           item.id;
         }}></FlatList>
     </View>
-    </ImageBackground>
   );
 };
